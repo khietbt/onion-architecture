@@ -6,9 +6,9 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: expressjs
-      MYSQL_USER: expressj
-      MYSQL_PASSWORD: expressjs
+      MYSQL_DATABASE: onion
+      MYSQL_USER: onion
+      MYSQL_PASSWORD: onion
       MYSQL_ALLOW_EMPTY_PASSWORD: "no"
     ports:
       - '3306:3306'

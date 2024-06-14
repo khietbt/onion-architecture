@@ -1,3 +1,3 @@
-CREATE USER 'expressjs'@'%' IDENTIFIED BY 'expressjs';
-GRANT ALL PRIVILEGES ON *.* TO 'expressjs'@'%';
+CREATE USER 'onion'@'%' IDENTIFIED BY 'onion';
+GRANT ALL PRIVILEGES ON *.* TO 'onion'@'%';
 FLUSH PRIVILEGES;
