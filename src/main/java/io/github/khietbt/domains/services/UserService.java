@@ -6,4 +6,8 @@ import java.util.UUID;
 
 public interface UserService {
     User getById(UUID id) throws Exception;
+
+    void create(User user) throws Exception;
+
+    void update(User user) throws Exception;
 }

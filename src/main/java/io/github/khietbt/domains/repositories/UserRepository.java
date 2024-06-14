@@ -7,4 +7,8 @@ import java.util.UUID;
 
 public interface UserRepository {
     Optional<User> findById(UUID id);
+
+    UUID create(User user);
+
+    void update(User user);
 }

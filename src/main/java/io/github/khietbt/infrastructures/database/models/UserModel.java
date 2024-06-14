@@ -2,7 +2,7 @@ package io.github.khietbt.infrastructures.database.models;
 
 import java.util.UUID;
 
-public class User {
+public class UserModel {
     private UUID id;
 
     private String name;

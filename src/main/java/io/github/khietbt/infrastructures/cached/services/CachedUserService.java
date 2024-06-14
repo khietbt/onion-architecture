@@ -21,4 +21,14 @@ public class CachedUserService implements UserService {
         return this.userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Could not find the user (id=" + id + ") from the cache"));
     }
+
+    @Override
+    public void create(User user) throws Exception {
+        this.userRepository.create(user);
+    }
+
+    @Override
+    public void update(User user) throws Exception {
+        this.userRepository.update(user);
+    }
 }
