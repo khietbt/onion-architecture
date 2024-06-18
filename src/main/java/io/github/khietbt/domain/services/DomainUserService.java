@@ -5,7 +5,7 @@ import io.github.khietbt.domain.entities.DomainUserEntity;
 import java.util.UUID;
 
 public interface DomainUserService {
-    DomainUserEntity findById(UUID id) throws RuntimeException;
+    DomainUserEntity findById(UUID id) throws Exception;
 
-    void create(DomainUserEntity user) throws RuntimeException;
+    void create(DomainUserEntity user) throws Exception;
 }
