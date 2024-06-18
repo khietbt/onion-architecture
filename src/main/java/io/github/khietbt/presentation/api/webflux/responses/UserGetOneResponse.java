@@ -1,4 +1,4 @@
-package io.github.khietbt.presentation.rest.responses;
+package io.github.khietbt.presentation.api.webflux.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

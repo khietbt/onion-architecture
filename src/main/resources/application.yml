@@ -1,0 +1,7 @@
+spring:
+  webflux:
+    base-path: /api/webflux
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/onion
+    username: onion
+    password: onion

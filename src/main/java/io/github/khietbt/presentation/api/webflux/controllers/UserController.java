@@ -1,10 +1,10 @@
-package io.github.khietbt.presentation.rest.controllers;
+package io.github.khietbt.presentation.api.webflux.controllers;
 
 import io.github.khietbt.application.services.ApplicationUserService;
 import io.github.khietbt.domain.entities.DomainUserEntity;
-import io.github.khietbt.presentation.rest.requests.UserCreateRequest;
-import io.github.khietbt.presentation.rest.responses.UserCreateResponse;
-import io.github.khietbt.presentation.rest.responses.UserGetOneResponse;
+import io.github.khietbt.presentation.api.webflux.requests.UserCreateRequest;
+import io.github.khietbt.presentation.api.webflux.responses.UserCreateResponse;
+import io.github.khietbt.presentation.api.webflux.responses.UserGetOneResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
