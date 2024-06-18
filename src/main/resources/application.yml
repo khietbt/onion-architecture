@@ -1,6 +1,10 @@
 spring:
   webflux:
     base-path: /api/webflux
+  liquibase:
+    url: jdbc:mysql://localhost:3306/onion
+    user: onion
+    password: onion
   r2dbc:
     url: r2dbc:mysql://localhost:3306/onion
     username: onion
