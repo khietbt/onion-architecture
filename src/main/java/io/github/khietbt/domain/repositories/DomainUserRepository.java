@@ -6,5 +6,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface DomainUserRepository {
-    Optional<DomainUserEntity> getById(UUID id);
+    Optional<DomainUserEntity> getOneById(UUID id);
+
+    void create(DomainUserEntity user) throws RuntimeException;
 }

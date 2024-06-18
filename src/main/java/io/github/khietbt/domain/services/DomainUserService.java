@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface DomainUserService {
     DomainUserEntity findById(UUID id) throws RuntimeException;
+
+    void create(DomainUserEntity user) throws RuntimeException;
 }
