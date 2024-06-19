@@ -5,6 +5,7 @@ import io.github.khietbt.domain.repositories.DomainUserRepository;
 import io.github.khietbt.domain.services.DomainUserService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -19,14 +20,12 @@ public class InMemoryUserService implements DomainUserService {
     }
 
     @Override
-    public DomainUserEntity findById(UUID id) throws RuntimeException {
-        return this.inMemoryUserRepository
-                .getOneById(id)
-                .orElseThrow(() -> new RuntimeException("User with id " + id + " not found"));
+    public Mono<DomainUserEntity> findById(UUID id) throws RuntimeException {
+        return this.inMemoryUserRepository.getOneById(id);
     }
 
     @Override
-    public void create(DomainUserEntity user) throws Exception {
-        this.inMemoryUserRepository.create(user);
+    public Mono<DomainUserEntity> create(DomainUserEntity user) {
+        return this.inMemoryUserRepository.create(user);
     }
 }

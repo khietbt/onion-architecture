@@ -6,6 +6,7 @@ import io.github.khietbt.infrastructure.database.r2dbc.services.R2dbcUserService
 import io.github.khietbt.infrastructure.inmemory.services.InMemoryUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
@@ -24,24 +25,16 @@ public class ApplicationUserService implements DomainUserService {
     }
 
     @Override
-    public DomainUserEntity findById(UUID id) throws Exception {
-        try {
-            return this.inMemoryUserService.findById(id);
-        } catch (Exception e) {
-            log.error("Could not find user with id {} in the cache, searching the database", id);
-
-            var user = this.databaseUserService.findById(id);
-
-            log.error("Found user with id {} in the database, placing it into the cache", id);
-            this.inMemoryUserService.create(user);
-
-            return user;
-        }
+    public Mono<DomainUserEntity> findById(UUID id) {
+        return this.inMemoryUserService.findById(id)
+                .switchIfEmpty(
+                        this.databaseUserService.findById(id)
+                                .flatMap(this.inMemoryUserService::create)
+                );
     }
 
     @Override
-    public void create(DomainUserEntity user) throws Exception {
-        this.databaseUserService.create(user);
-        // TODO: Trigger an event here
+    public Mono<DomainUserEntity> create(DomainUserEntity user) {
+        return this.databaseUserService.create(user);
     }
 }

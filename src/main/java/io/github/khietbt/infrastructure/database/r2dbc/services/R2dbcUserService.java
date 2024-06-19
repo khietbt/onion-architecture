@@ -6,9 +6,9 @@ import io.github.khietbt.infrastructure.database.r2dbc.entities.R2dbcUserEntity;
 import io.github.khietbt.infrastructure.database.r2dbc.repositories.R2dbcUserRepository;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 @Service
 @Primary
@@ -20,7 +20,7 @@ public class R2dbcUserService implements DomainUserService {
     }
 
     @Override
-    public DomainUserEntity findById(UUID id) throws Exception {
+    public Mono<DomainUserEntity> findById(UUID id) {
         return this.r2dbcUserRepository
                 .getOneById(id.toString())
                 .map(
@@ -30,20 +30,18 @@ public class R2dbcUserService implements DomainUserService {
                                 .name(r.getName())
                                 .email(r.getEmail())
                                 .build()
-                )
-                .toFuture()
-                .get();
+                );
     }
 
     @Override
-    public void create(DomainUserEntity user) throws RuntimeException, ExecutionException, InterruptedException {
-        this.r2dbcUserRepository.save(
+    public Mono<DomainUserEntity> create(DomainUserEntity user) {
+        return this.r2dbcUserRepository.save(
                 R2dbcUserEntity
                         .builder()
                         .id(user.getId().toString())
                         .name(user.getName())
                         .email(user.getEmail())
                         .build()
-        ).toFuture().get();
+        ).thenReturn(user);
     }
 }

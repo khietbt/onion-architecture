@@ -18,42 +18,38 @@ public class UserController {
     private ApplicationUserService applicationUserService;
 
     @GetMapping("/{id}")
-    public Mono<UserGetOneResponse> getOne(@PathVariable(name = "id") UUID id) {
-        try {
-            var user = applicationUserService.findById(id);
+    public Mono<UserGetOneResponse> getOne(@PathVariable(name = "id") String id) {
 
-            return Mono.just(
-                    UserGetOneResponse
-                            .builder()
-                            .id(user.getId())
-                            .name(user.getName())
-                            .email(user.getEmail())
-                            .build()
-            );
-        } catch (Exception e) {
-            return Mono.error(e);
-        }
+        return applicationUserService.findById(UUID.fromString(id))
+                .map(
+                        user ->
+                                UserGetOneResponse
+                                        .builder()
+                                        .id(user.getId())
+                                        .name(user.getName())
+                                        .email(user.getEmail())
+                                        .build()
+                );
     }
 
     @PostMapping
     public Mono<UserCreateResponse> create(@RequestBody UserCreateRequest request) {
         try {
-            var user = DomainUserEntity
-                    .builder()
-                    .id(UUID.randomUUID())
-                    .name(request.getName())
-                    .email(request.getEmail())
-                    .build();
-
-            applicationUserService.create(user);
-
-            return Mono.just(UserCreateResponse
-                    .builder()
-                    .id(user.getId())
-                    .name(user.getName())
-                    .email(user.getEmail())
-                    .build()
-            );
+            return applicationUserService.create(
+                            DomainUserEntity
+                                    .builder()
+                                    .id(UUID.randomUUID())
+                                    .name(request.getName())
+                                    .email(request.getEmail())
+                                    .build())
+                    .map(
+                            user -> UserCreateResponse
+                                    .builder()
+                                    .id(user.getId())
+                                    .name(user.getName())
+                                    .email(user.getEmail())
+                                    .build()
+                    );
         } catch (Exception e) {
             return Mono.error(e);
         }

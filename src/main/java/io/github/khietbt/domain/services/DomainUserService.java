@@ -1,11 +1,12 @@
 package io.github.khietbt.domain.services;
 
 import io.github.khietbt.domain.entities.DomainUserEntity;
+import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
 public interface DomainUserService {
-    DomainUserEntity findById(UUID id) throws Exception;
+    Mono<DomainUserEntity> findById(UUID id);
 
-    void create(DomainUserEntity user) throws Exception;
+    Mono<DomainUserEntity> create(DomainUserEntity user);
 }
